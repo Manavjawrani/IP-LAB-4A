@@ -120,7 +120,14 @@ initial-scale=1.0" />
 </style>
 
 <body>
-    <form action="" enctype="multipart/form-data" method="put">
+    <form
+          name="myForm"
+          id="shirt_cart"
+          onsubmit="return validateForm()"
+          enctype="multipart/form-data"
+          method="put"
+>
+    
         <h3>Your Cart</h3>
         <div class="cart">
             <div class="form-data">
@@ -183,26 +190,32 @@ initial-scale=1.0" />
  
 <script>
     function validateForm() {
+        
         const values = [
             document.forms["myForm"]["tagline"].value,
             document.forms["myForm"]["color"].value,
             document.forms["myForm"]["size"].value,
             document.forms["myForm"]["payment"].value,
         ];
+        
         const hasEmptyFields = Object.values(values).some(
             (element) => element === ""
         );
+       
         if (hasEmptyFields) {
             alert("Please fill in all fields");
             return;
         }
+        
+        
         document.getElementById("tagline").value = "";
         var ele = document.getElementsByName("color");
         for (var i = 0; i < ele.length; i++) ele[i].checked = false;
         var ele = document.getElementsByName("payment");
         for (var i = 0; i < ele.length; i++) ele[i].checked = false;
+        
         const receipt_formatted = `Thank you for shopping!\nHere's your
-        receipt:\nDate: ${new Date().toLocaleDateString(
+receipt:\nDate: ${new Date().toLocaleDateString(
             "UK"
         )}\nTagline: ${values[0]}\nColor: ${values[1]}\nSize: ${
         values[2]
@@ -210,8 +223,9 @@ initial-scale=1.0" />
         alert(receipt_formatted);
     }
     
-       const form = document.getElementById("shirt_cart");
-    form.addEventListener("submit", (event) => {
+const form = document.getElementById("shirt_cart");
+    
+form.addEventListener("submit", (event) => {
         event.preventDefault();
     });
     </script>
